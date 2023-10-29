@@ -1,20 +1,18 @@
 {% extends "base.html"%}
-
 {%block main%}
-
 <form action="">
     <input type="text" name="apellido">
-    <input type="submit" value="Buscar Integrante" />
+    <input type="submit" value="Buscar Colaborador" />
 </form>
 
 <ul>
 
-{% for integrante in listado_integrantes%}
+{% for colaborador in listado_colaboradores %}
 
-<li>{{integrante}}</li>
+<li>{{colaborador}}</li>
 
 {% endfor %}
 
-</ul>
+</ul> 
 
 {%endblock main%}
