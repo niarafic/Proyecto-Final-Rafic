@@ -1,0 +1,33 @@
+{% extends "base.html"%}
+
+{%block main %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+  
+    {{formulario}}
+    
+    <input type="submit" value="Crear">
+</form>
+
+{% endblock main %}
+
+{% comment %} <p>
+        Nombre
+        <input type="text" name="Nombre">
+    </p>
+    <p>
+        Apellido
+        <input type="text" name="Apellido">
+    </p>
+    <p>
+        Mail
+        <input type="text" name="Mail">
+    </p>
+    <p>
+        Área de Investigación
+        <input type="text" name="Área de Investigación">
+    </p>
+    <input type="submit" value="Crear">
+ {% endcomment %}
+   
