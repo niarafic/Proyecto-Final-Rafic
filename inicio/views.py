@@ -10,15 +10,16 @@ def inicio(request):
 # Vista de integrantes del laboratorio
 def integrantes(request):
     
-    buscar_apellido=request.GET.get('apellido')
+    #buscar_apellido=request.GET.get('apellido')
     
-    if buscar_apellido:
-        listado_integrantes=Integrante.objects.filter(apellido__icontains=buscar_apellido)
+    # if buscar_apellido:
+    #     listado_integrantes=Integrante.objects.filter(apellido__icontains=buscar_apellido)
         
-    else:
+    # else:
     
-        listado_integrantes=Integrante.objects.all()
+    #     listado_integrantes=Integrante.objects.all()
 
+    listado_integrantes=Integrante.objects.all()
     return render(request, 'inicio/integrantes.html', {'listado_integrantes': listado_integrantes})
 
 # Vista para la creación de integrantes

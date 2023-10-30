@@ -15,12 +15,16 @@ class Publicacion(models.Model):
     revista=models.CharField(max_length=30)
     volumen=models.IntegerField()
     anio=models.IntegerField()
+    def __str__(self):
+        return f' {self.id}-{self.titulo}-{self.autores}-{self.revista}-{self.volumen}-{self.anio}'
+   
     
 class Colaborador(models.Model):
     nombre= models.CharField(max_length=30)
     apellido= models.CharField(max_length=30)
     mail=models.EmailField()
     universidad=models.CharField(max_length=30)
-    
+    def __str__(self):
+        return f' {self.id}-{self.nombre}-{self.apellido}.{self.universidad}'
     
     

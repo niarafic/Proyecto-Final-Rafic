@@ -7,6 +7,8 @@
     <input type="submit" value="Buscar Publiación" />
 </form>
 
+
+{% if listado_publicaciones %}
 <ul>
 
 {% for publicacion in listado_publicaciones%}
@@ -14,6 +16,10 @@
 <li>{{publicacion}}</li>
 
 {% endfor %}
+{% else %}
+
+<p> No se encontró la publicación. </p>
+{% endif %}
 
 </ul>
 
