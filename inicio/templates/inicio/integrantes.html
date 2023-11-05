@@ -11,7 +11,7 @@
 
 {% for integrante in listado_integrantes%}
 
-<li>{{integrante}}</li>
+<li>{{integrante}} |<a href= {% url "detalle_integrantes" integrante.id%}> Ver Más </a>||<a href= {% url "actualizar_integrantes" integrante.id%}> Actualizar </a>| | <a href={% url "eliminar_integrantes" integrante.id %}> Eliminar </a> |</li>
 
 {% endfor %}
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from inicio.models import Integrante, Colaborador, Publicacion
-from inicio.forms import CrearIntegrante, CrearPublicacion, CrearColaborador
+from inicio.forms import CrearIntegrante, CrearPublicacion, CrearColaborador, BusquedaPublicacionFormulario, ActualizarIntegrante
 
 # Vista de inicio
 def inicio(request):
@@ -21,6 +21,12 @@ def integrantes(request):
 
     listado_integrantes=Integrante.objects.all()
     return render(request, 'inicio/integrantes.html', {'listado_integrantes': listado_integrantes})
+
+def detalle_integrantes(request, integrante_id):
+    integrante=Integrante.objects.get(id=integrante_id)
+    
+    return render(request, 'inicio/detalle_integrantes.html', {'integrante': integrante})
+    
 
 # Vista para la creación de integrantes
 def crear_integrantes(request):
@@ -45,27 +51,72 @@ def crear_integrantes(request):
             return redirect('integrantes')
         else:
             return render(request,'inicio/crear_integrantes.html',{'formulario':formulario})
-            
-     
         
     formulario=CrearIntegrante()
     return render(request,'inicio/crear_integrantes.html',{'formulario':formulario})
+        
+#vista para eliminar integrante
+    
+def eliminar_integrantes(request,integrante_id):
+    integrante_a_eliminar=Integrante.objects.get(id=integrante_id)
+    integrante_a_eliminar.delete()
+    return redirect("integrantes")
+
+#Vista par aactualización de integrante usando formulario
+def actualizar_integrantes(request, integrante_id):
+    
+    integrante_a_actualizar=Integrante.objects.get(id=integrante_id)
+    
+    if request.method=="POST":
+        formulario=ActualizarIntegrante(request.POST)
+        if formulario.is_valid():
+            info_nueva=formulario.cleaned_data
+            integrante_a_actualizar.nombre=info_nueva.get('nombre')
+            integrante_a_actualizar.apellido=info_nueva.get('apellido')
+            integrante_a_actualizar.mail=info_nueva.get('mail')
+            integrante_a_actualizar.area_investigacion=info_nueva.get('area_investigacion')
+            
+            integrante_a_actualizar.save()
+            return redirect('integrantes')
+        return render(request, 'inicio/actualizar_integrantes.html',{'formulario':formulario})
+    
+    formulario=ActualizarIntegrante(initial={'nombre':integrante_a_actualizar.nombre, 'apellido':integrante_a_actualizar.apellido, 'mail': integrante_a_actualizar.mail, 'area_investigacio':integrante_a_actualizar.area_investigacion})
+    
+    return render(request,'inicio/actualizar_integrantes.html',{'formulario':formulario})
+    
+     
+        
+    
 
 
 # Vista para publicaciones
     
 def publicaciones(request):
     
-    buscar_titulo=request.GET.get('titulo')
+    #búsqueda usando formulario de Django
+    formulario=BusquedaPublicacionFormulario(request.GET)
+    if formulario.is_valid():
+        titulo_a_buscar=formulario.cleaned_data.get('titulo')
+        listado_de_publicaciones=Publicacion.objects.filter(titulo__icontains=titulo_a_buscar)
     
-    if buscar_titulo:
-        listado_publicaciones=Publicacion.objects.filter(titulo__icontains=buscar_titulo)
+    formulario=BusquedaPublicacionFormulario()
         
-    else:
+    return render(request, 'inicio/publicaciones.html', {'formulario':formulario,'listado_publicaciones': listado_de_publicaciones})
     
-        listado_publicaciones=Publicacion.objects.all()
+    
+    
+    
+    
+    # buscar_titulo=request.GET.get('titulo')
+    
+    # if buscar_titulo:
+    #     listado_publicaciones=Publicacion.objects.filter(titulo__icontains=buscar_titulo)
+        
+    # else:
+    
+    #     listado_publicaciones=Publicacion.objects.all()
 
-    return render(request, 'inicio/publicaciones.html', {'listado_publicaciones': listado_publicaciones})
+    # return render(request, 'inicio/publicaciones.html', {'listado_publicaciones': listado_publicaciones})
 
 #vista de crear publicaciones
 
@@ -95,15 +146,15 @@ def crear_publicaciones(request):
 
 
 def colaboradores(request):
-    buscar_apellido=request.GET.get('apellido')
+    # buscar_apellido=request.GET.get('apellido')
     
-    if buscar_apellido:
-        listado_colaboradores=Colaborador.objects.filter(apellido__icontains=buscar_apellido)
+    # if buscar_apellido:
+    #     listado_colaboradores=Colaborador.objects.filter(apellido__icontains=buscar_apellido)
         
-    else:
+    # else:
     
-        listado_colaboradores=Colaborador.objects.all()
-
+    #     listado_colaboradores=Colaborador.objects.all()
+    listado_colaboradores=Colaborador.objects.all()
     return render(request, 'inicio/colaboradores.html', {'listado_colaboradores':listado_colaboradores})
 
 #vista para la creación de colaboradores

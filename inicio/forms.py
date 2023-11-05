@@ -1,12 +1,19 @@
 from django import forms
-
-# Formulario para crear un integrante
-class CrearIntegrante(forms.Form):
+class BaseIntegrante(forms.Form):
     nombre=forms.CharField(max_length=30)
     apellido=forms.CharField(max_length=30)
     mail=forms.CharField(max_length=30)
     area_investigacion=forms.CharField(max_length=250)
     
+
+# Formulario para crear un integrante
+class CrearIntegrante(BaseIntegrante):
+    ...
+    
+class ActualizarIntegrante(BaseIntegrante):
+    ...
+   
+   
 # Formulario para crear una publicación   
 class CrearPublicacion(forms.Form):
     titulo= forms.CharField(max_length=250)
@@ -14,6 +21,11 @@ class CrearPublicacion(forms.Form):
     revista=forms.CharField(max_length=30)
     volumen=forms.IntegerField()
     anio=forms.IntegerField()
+    
+#Formulario para la búsqueda de una publicación
+class BusquedaPublicacionFormulario(forms.Form):
+    titulo=forms.CharField(max_length=250, required=False)
+
 
 # Formulario para crear un colaborador  
 class CrearColaborador(forms.Form):
