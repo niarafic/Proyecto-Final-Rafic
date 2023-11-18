@@ -1,0 +1,26 @@
+{% extends "base.html"%}
+
+{%block main%}
+
+
+    <p>
+        <a class="btn btn-primary" href={% url "crear_congreso"%}>Crear Congreso</a>
+        
+    
+    </p>
+{% comment %} <form action="">
+    <input type="text" name="apellido">
+    <input type="submit" value="Buscar Integrante" />
+</form> {% endcomment %}
+
+<ul>
+
+{% for congreso in listado_congresos %}
+
+<li>|<a href= {% url "detalle_congreso" congreso.id%}> {{congreso}}   </a>||<a href= {% url "actualizar_congreso" congreso.id%}> Actualizar </a>| | <a href={% url "eliminar_congreso" congreso.id %}> Eliminar </a> |</li>
+
+{% endfor %}
+
+</ul>
+
+{%endblock main%}

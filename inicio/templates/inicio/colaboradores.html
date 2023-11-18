@@ -4,7 +4,10 @@
     <input type="text" name="apellido">
     <input type="submit" value="Buscar Colaborador" />
 </form> {% endcomment %}
-
+<p>
+    <a class="btn btn-primary" href={% url "crear_colaboradores"%}>Crear Colaboradores</a>
+    
+    </p>
 <ul>
 
 {% for colaborador in listado_colaboradores %}

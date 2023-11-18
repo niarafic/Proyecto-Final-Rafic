@@ -1,20 +1,32 @@
 {% extends "base.html"%}
 
 {%block main%}
+<p><a class="btn btn-primary" href={% url "crear_integrantes"%}>Crear Integrantes</a>
+    
+
+</p>
 
 {% comment %} <form action="">
     <input type="text" name="apellido">
     <input type="submit" value="Buscar Integrante" />
 </form> {% endcomment %}
-
+{% if listado_integrantes%}
 <ul>
-
+   
 {% for integrante in listado_integrantes%}
 
-<li>{{integrante}} |<a href= {% url "detalle_integrantes" integrante.id%}> Ver Más </a>||<a href= {% url "actualizar_integrantes" integrante.id%}> Actualizar </a>| | <a href={% url "eliminar_integrantes" integrante.id %}> Eliminar </a> |</li>
+
+
+<li>{{integrante}}-Área de Investigación:{{integrante.area_investigacion}} <a href= {% url "detalle_integrantes" integrante.id%}> Ver Más </a></li>
 
 {% endfor %}
+
+{% else %}
+
+<p> No se encontró ningún integrante. </p>
+{% endif %}
 
 </ul>
 
 {%endblock main%}
+

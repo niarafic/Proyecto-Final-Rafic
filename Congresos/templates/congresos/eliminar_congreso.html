@@ -1,0 +1,12 @@
+{% extends "base.html"%}
+
+{%block main %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+  
+    Desea eliminar el congreso {{congreso.nombre_congreso}}-{{congreso.lugar}}?
+    <input type="submit" value="Confirmar">
+</form>
+
+{% endblock main %}

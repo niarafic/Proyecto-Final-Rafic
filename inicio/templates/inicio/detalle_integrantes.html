@@ -3,9 +3,11 @@
 {%block main %}
 
 <ul>
+<a class="btn btn-primary" href= {% url "actualizar_integrantes" integrante.id%}> Actualizar </a> <a class="btn btn-warning"href={% url "eliminar_integrantes" integrante.id %}> Eliminar </a>
 <li> Nombre: {{integrante.nombre}}</li>
 <li> Apellido: {{integrante.apellido}}</li>
 <li> Mail: {{integrante.mail}}</li>
+<li> Ingreso: {{integrante.ingreso}}</li>
 <li> Área de Investigación: {{integrante.area_investigacion}}</li>
 
 </ul>

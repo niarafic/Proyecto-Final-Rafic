@@ -6,6 +6,8 @@ class Integrante(models.Model):
     apellido= models.CharField(max_length=30)
     mail= models.EmailField()
     area_investigacion=models.TextField()
+    ingreso=models.DateTimeField(null=True)
+    avatar=models.ImageField(upload_to='avatares', null=True, blank=True)
     def __str__(self):
         return f' {self.id}-{self.nombre}-{self.apellido}'
     

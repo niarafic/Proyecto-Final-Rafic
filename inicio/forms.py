@@ -4,6 +4,8 @@ class BaseIntegrante(forms.Form):
     apellido=forms.CharField(max_length=30)
     mail=forms.CharField(max_length=30)
     area_investigacion=forms.CharField(max_length=250)
+    ingreso=forms.DateTimeField()
+    
     
 
 # Formulario para crear un integrante
@@ -11,7 +13,7 @@ class CrearIntegrante(BaseIntegrante):
     ...
     
 class ActualizarIntegrante(BaseIntegrante):
-    ...
+    avatar=forms.ImageField(required=False)
    
    
 # Formulario para crear una publicación   
