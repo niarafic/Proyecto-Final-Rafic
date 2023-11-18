@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'inicio',
     'Congresos',
     'accounts',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [

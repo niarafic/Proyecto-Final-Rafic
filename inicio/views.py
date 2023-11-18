@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from inicio.models import Integrante, Colaborador, Publicacion
 from inicio.forms import CrearIntegrante, CrearPublicacion, CrearColaborador, BusquedaPublicacionFormulario, ActualizarIntegrante
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 # Vista de inicio
 def inicio(request):
@@ -48,7 +51,8 @@ def crear_integrantes(request):
             mail=info_limpia.get('mail')
             area_investigacion=info_limpia.get('area_investigacion')
             ingreso=info_limpia.get('ingreso')
-            integrante= Integrante(nombre=nombre, apellido=apellido, mail=mail, area_investigacion=area_investigacion, ingreso=ingreso)
+            biografia=info_limpia.get('biografia')
+            integrante= Integrante(nombre=nombre, apellido=apellido, mail=mail, area_investigacion=area_investigacion, ingreso=ingreso, biografia=biografia)
             integrante.save()
             
             return redirect('integrantes')
@@ -59,38 +63,54 @@ def crear_integrantes(request):
     return render(request,'inicio/crear_integrantes.html',{'formulario':formulario})
         
 #vista para eliminar integrante
+
+class EliminarIntegrante(LoginRequiredMixin, DeleteView):
+    model=Integrante
+    template_name="inicio/eliminar_integrantes.html"
+    success_url= reverse_lazy('integrantes')
     
-@login_required    
-def eliminar_integrantes(request,integrante_id):
-    integrante_a_eliminar=Integrante.objects.get(id=integrante_id)
-    integrante_a_eliminar.delete()
-    return redirect("integrantes")
+
 
 #Vista par aactualización de integrante usando formulario
 
-@login_required
-def actualizar_integrantes(request, integrante_id):
+
+class ActualizarIntegrante(LoginRequiredMixin, UpdateView):
+    model= Integrante
+    template_name='inicio/actualizar_integrantes.html'
+    fields=[ 'nombre', 'apellido', 'mail', 'area_investigacion', 'ingreso', 'biografia','avatar']
+    success_url= reverse_lazy('integrantes')
     
-    integrante_a_actualizar=Integrante.objects.get(id=integrante_id)
     
-    if request.method=="POST":
-        formulario=ActualizarIntegrante(request.POST, request.FILES)
-        if formulario.is_valid():
-            info_nueva=formulario.cleaned_data
-            integrante_a_actualizar.nombre=info_nueva.get('nombre')
-            integrante_a_actualizar.apellido=info_nueva.get('apellido')
-            integrante_a_actualizar.mail=info_nueva.get('mail')
-            integrante_a_actualizar.area_investigacion=info_nueva.get('area_investigacion')
-            integrante_a_actualizar.avatar=info_nueva.get('avatar')
+    
+ # @login_required    
+# def eliminar_integrantes(request,integrante_id):
+#     integrante_a_eliminar=Integrante.objects.get(id=integrante_id)
+#     integrante_a_eliminar.delete()
+#     return redirect("integrantes")   
+ 
+# @login_required
+# def actualizar_integrantes(request, integrante_id):
+    
+#     integrante_a_actualizar=Integrante.objects.get(id=integrante_id)
+    
+#     if request.method=="POST":
+#         formulario=ActualizarIntegrante(request.POST, request.FILES)
+#         if formulario.is_valid():
+#             info_nueva=formulario.cleaned_data
+#             integrante_a_actualizar.nombre=info_nueva.get('nombre')
+#             integrante_a_actualizar.apellido=info_nueva.get('apellido')
+#             integrante_a_actualizar.mail=info_nueva.get('mail')
+#             integrante_a_actualizar.area_investigacion=info_nueva.get('area_investigacion')
+#             integrante_a_actualizar.avatar=info_nueva.get('avatar')
             
-            integrante_a_actualizar.save()
-            return redirect('integrantes')
-        #para el tp final me tiene que llevar a integrante
-        return render(request, 'inicio/actualizar_integrantes.html',{'formulario':formulario})
+#             integrante_a_actualizar.save()
+#             return redirect('integrantes')
+#         #para el tp final me tiene que llevar a integrante
+#         return render(request, 'inicio/actualizar_integrantes.html',{'formulario':formulario})
     
-    formulario=ActualizarIntegrante(initial={'nombre':integrante_a_actualizar.nombre, 'apellido':integrante_a_actualizar.apellido, 'mail': integrante_a_actualizar.mail, 'area_investigacio':integrante_a_actualizar.area_investigacion, 'avatar':integrante_a_actualizar.avatar})
+#     formulario=ActualizarIntegrante(initial={'nombre':integrante_a_actualizar.nombre, 'apellido':integrante_a_actualizar.apellido, 'mail': integrante_a_actualizar.mail, 'area_investigacio':integrante_a_actualizar.area_investigacion, 'avatar':integrante_a_actualizar.avatar})
     
-    return render(request,'inicio/actualizar_integrantes.html',{'formulario':formulario})
+#     return render(request,'inicio/actualizar_integrantes.html',{'formulario':formulario})
     
      
         
@@ -192,3 +212,5 @@ def crear_colaboradores(request):
     formulario=CrearColaborador()
     return render(request,'inicio/crear_colaboradores.html',{'formulario':formulario})
 
+def about(request):
+    return render(request,'inicio/about.html')

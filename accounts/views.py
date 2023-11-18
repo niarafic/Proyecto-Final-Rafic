@@ -5,6 +5,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from accounts.forms import MiFormularioDeCreacion, MiFormularioEdicionPerfil
 from accounts.models import DatosExtra
+from django.contrib.auth.models import User
 
 
 
@@ -75,6 +76,10 @@ class CambiarPassword(PasswordChangeView):
     
     #cambiar en el reverse lazy que en vez de llevarme a editar perfil, me lleve a la view del perfil#
     
+
+def ver_perfil(request, usuario_id):
+    usuario= User.objects.get(id=usuario_id)
+    return render(request, 'accounts/perfil.html',{'usuario':usuario})
 
     
     

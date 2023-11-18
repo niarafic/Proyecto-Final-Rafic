@@ -1,13 +1,17 @@
+
 {% extends "base.html"%}
 
 {%block main %}
 
 <form action="" method="POST" enctype='multipart/form-data'>
     {% csrf_token %}
-  
-    {{formulario}}
-    
+    <table>
+        {{form.media}}
+        {{form}}
+    </table>
     <input type="submit" value="Actualizar">
 </form>
 
 {% endblock main %}
+
+

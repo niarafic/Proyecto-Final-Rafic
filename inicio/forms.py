@@ -1,10 +1,13 @@
 from django import forms
+from ckeditor.fields import RichTextFormField
+
 class BaseIntegrante(forms.Form):
     nombre=forms.CharField(max_length=30)
     apellido=forms.CharField(max_length=30)
     mail=forms.CharField(max_length=30)
-    area_investigacion=forms.CharField(max_length=250)
+    area_investigacion=forms.CharField(max_length=50)
     ingreso=forms.DateTimeField()
+    biografia=RichTextFormField()
     
     
 

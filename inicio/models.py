@@ -1,13 +1,15 @@
 from django.db import models
+from ckeditor.fields import RichTextField 
 
 # Create your models here.
 class Integrante(models.Model):
     nombre= models.CharField(max_length=30)
     apellido= models.CharField(max_length=30)
     mail= models.EmailField()
-    area_investigacion=models.TextField()
+    area_investigacion=models.CharField(max_length=50)
     ingreso=models.DateTimeField(null=True)
     avatar=models.ImageField(upload_to='avatares', null=True, blank=True)
+    biografia=RichTextField(null=True)
     def __str__(self):
         return f' {self.id}-{self.nombre}-{self.apellido}'
     

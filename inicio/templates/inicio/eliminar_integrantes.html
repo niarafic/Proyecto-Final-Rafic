@@ -1,0 +1,12 @@
+{% extends "base.html"%}
+
+{%block main %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+  
+    Desea eliminar el integrante {{integrante.nombre}}-{{integrante.apellido}}?
+    <input type="submit" value="Confirmar">
+</form>
+
+{% endblock main %}
