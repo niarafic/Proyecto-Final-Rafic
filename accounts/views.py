@@ -82,4 +82,5 @@ def ver_perfil(request, usuario_id):
     return render(request, 'accounts/perfil.html',{'usuario':usuario})
 
     
+
     

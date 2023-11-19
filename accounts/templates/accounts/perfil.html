@@ -4,8 +4,8 @@
 
 <ul>
 <a class="btn btn-primary" href= {% url "ver_perfil" usuario.id%}> Editar Perfil </a> <a class="btn btn-warning"href={% url "cambiar_password" usuario.id %}> Cambiar Contraseña </a>
-<li> Nombre: {{User.nombre}}</li>
-<li> Email: {{User.email}}</li>
+<li> Nombre: {{usuario.nombre}}</li>
+<li> Email: {{usuario.email}}</li>
 
 
 </ul>
