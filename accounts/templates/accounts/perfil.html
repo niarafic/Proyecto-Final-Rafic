@@ -1,12 +1,23 @@
 {% extends "base.html"%}
 
+
 {%block main %}
 
 <ul>
-<a class="btn btn-primary" href= {% url "ver_perfil" usuario.id%}> Editar Perfil </a> <a class="btn btn-warning"href={% url "cambiar_password" usuario.id %}> Cambiar Contraseña </a>
-<li> Nombre: {{usuario.nombre}}</li>
-<li> Email: {{usuario.email}}</li>
-
-
+    <a class="btn btn-primary" href="{% url 'ver_perfil' %}">Editar Perfil</a>
+    <a class="btn btn-warning" href="{% url 'cambiar_password' %}">Cambiar Contraseña</a>
+    <li>Nombre: {{ request.user.nombre }}</li>
+    <li>Email: {{ request.user.email }}</li>
+    {% if request.user.datosextra %}
+        <li>Biografía: {{ request.user.datosextra.biografia }}</li>
+        {% if request.user.datosextra.avatar %}
+            <li>
+                Avatar:
+                <p>{{ request.user.datosextra.avatar.url}}</p>
+                <img src="{{ request.user.datosextra.avatar.url }}" alt="Avatar">
+            </li>
+        {% endif %}
+    {% endif %}
 </ul>
+
 {% endblock main %}

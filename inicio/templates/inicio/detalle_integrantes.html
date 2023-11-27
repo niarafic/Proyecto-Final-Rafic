@@ -10,6 +10,8 @@
 <li> Ingreso: {{integrante.ingreso}}</li>
 <li> Área de Investigación: {{integrante.area_investigacion}}</li>
 <li> Biografía: {{integrante.biografia | safe}} </li>
-
+{% if integrante.avatar %}
+    <li> <img src="{{ integrante.avatar.url }}" alt="Avatar"> </li>
+{% endif %}
 </ul>
 {% endblock main %}
